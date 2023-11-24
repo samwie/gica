@@ -11,10 +11,11 @@ import numpy as np
 
 import sys
 
+from ..core.model_structure import UNet
+
 sys.path.append(
     "/home/samuel/Dokumenty/Programy/Grayscale-image-coloring-application/model_training_section"
 )
-from model_structure import UNet
 
 root = Tk()
 
@@ -71,3 +72,6 @@ btn_2.place(relx=0.7, rely=0.01)
 
 
 root.mainloop()
+
+if __name__ == "__main__":
+    main()
