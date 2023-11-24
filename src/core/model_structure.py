@@ -3,53 +3,9 @@ import torch.nn as nn
 from torch.nn.functional import relu
 import numpy as np
 from PIL import Image
-
-
-class Conv_block(nn.Module):
-    def __init__(self, in_channels, out_channels):
-        super().__init__()
-        self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1)
-        self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1)
-
-    def forward(self, inputs):
-        x = relu(self.conv1(inputs))
-        x = relu(self.conv2(x))
-
-        return x
-
-
-class Encoder_block(nn.Module):
-    def __init__(self, in_channels, out_channels):
-        super().__init__()
-        self.convolution = Conv_block(in_channels, out_channels)
-        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
-
-    def forward(self, inputs):
-        x = self.convolution(inputs)
-        p = self.pool(x)
-
-        return x, p
-
-
-class Decoder_block(nn.Module):
-    def __init__(self, in_channels, out_channels):
-        super().__init__()
-        self.upconv = nn.ConvTranspose2d(
-            in_channels, in_channels, kernel_size=2, stride=2
-        )
-        self.dconv1 = nn.Conv2d(
-            in_channels + out_channels, out_channels, kernel_size=3, padding=1
-        )
-        self.dconv2 = nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1)
-
-    def forward(self, inputs, skip):
-        x = self.upconv(inputs)
-        x = torch.cat([x, skip], dim=1)
-        x = relu(self.dconv1(x))
-        x = relu(self.dconv2(x))
-
-        return x
-
+from Conv_block import Conv_block
+from Decoder_block import Decoder_block
+from Encoder_block import Encoder_block
 
 class UNet(nn.Module):
     def __init__(self):
