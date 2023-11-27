@@ -1,77 +1,39 @@
-from tkinter import *
-from tkinter import ttk
-from PIL import Image, ImageTk
-from tkinter import filedialog
-import torch
-import cv2
-import numpy as np
-from skimage.color import rgb2lab, lab2rgb
-from torchvision import transforms
-import numpy as np
-
 import sys
+from tkinter import Tk, Button
 
-from ..core.model_structure import UNet
+from select_path import select_path
+from predict import predict
+from load_model import load_model
 
-sys.path.append(
-    "/home/samuel/Dokumenty/Programy/Grayscale-image-coloring-application/model_training_section"
-)
-
-root = Tk()
-
-root.title("Image coloring application")
-root.geometry("600x400")
-
-model = UNet()
-model.load_state_dict(
-    torch.load(
-        "/home/samuel/Dokumenty/Programy/Grayscale-image-coloring-application/model_training_section/trained_model.pth",
-        map_location=torch.device("cpu"),
-    )
-)
+sys.path.append("./../core")
+from model_structure import UNet
 
 
-global image
+class GUI_Window:
+    def __init__(self, root, path):
+        self.root = root
+        self.root.title("Image coloring application")
+        self.root.geometry("600x320")
 
+        self.image = None
+        self.model = load_model(path)
 
-def select_path():
-    global tk_image
-    global image
+        btn_1 = Button(self.root, text="Load image", fg="black", command=self.load_image)
+        btn_1.place(relx=0.2, rely=0.02)
+        btn_2 = Button(self.root, text="Predict", fg="black", command=self.prediction)
+        btn_2.place(relx=0.7, rely=0.02)
+        
 
-    path = filedialog.askopenfilename()
-    image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
-    # image = cv2.resize(image, (256, 256))
-    image_pil = Image.fromarray(image)
+    def load_image(self):
+        self.image = select_path(self.root)
 
-    im_window = ttk.Frame(root, padding=10)
-    im_window.place(relx=0, rely=0.1)
-    tk_image = ImageTk.PhotoImage(image_pil)
-    ttk.Label(im_window, image=tk_image).grid(column=0, row=0)
+    def prediction(self):
+        if self.image is not None:
+            predict(self.model, self.image, self.root)
 
-
-def predict():
-    global image
-    global tk_image_pred
-
-    img_normalized = image / 50.0 - 1
-    img_tensor = torch.tensor(img_normalized).float().unsqueeze(0).unsqueeze(0)
-    image_pred = model.predict(img_tensor)
-    tk_image_pred = ImageTk.PhotoImage(image_pred)
-    im_window = ttk.Frame(root, padding=10)
-
-    im_window.place(relx=0.5, rely=0.1)
-    ttk.Label(im_window, image=tk_image_pred).grid(column=0, row=0)
-
-
-# buttons
-btn_1 = Button(root, text="Load image", fg="black", command=select_path)
-btn_1.place(relx=0.2, rely=0.01)
-
-btn_2 = Button(root, text="Predict", fg="black", command=predict)
-btn_2.place(relx=0.7, rely=0.01)
-
-
-root.mainloop()
 
 if __name__ == "__main__":
-    main()
+    root = Tk()
+    path = "./../../../trained_model.pth"
+    app = GUI_Window(root, path)
+    root.mainloop()
