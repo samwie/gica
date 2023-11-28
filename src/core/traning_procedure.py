@@ -4,9 +4,12 @@ from model_structure import UNet
 from Model_trainer import Model_trainer
 
 def main():
+    ''' Main function for training a U-Net model
+    '''
     parser = argparse.ArgumentParser()
     parser.add_argument('path', type=str, help='Path to dataset')
     args = parser.parse_args()
+    
     if not os.path.exists(args.path):
         print('Path does not exist')
         return  

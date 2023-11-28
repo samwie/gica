@@ -6,17 +6,20 @@ from tqdm import tqdm
 from make_dataloaders import make_dataloaders
 
 class  Model_trainer():
-    def __init__(self, model, epochs: int, set_dir: str, learning_rate:  float):
+    '''Utility class for training a PyTorch model
+    '''
+    def __init__(self, model, epochs: int, set_dir: str, learning_rate: float):
         self.model = model
         self.epochs = epochs
         self.learning_rate = learning_rate
-        
+
         self.set_dir = set_dir
         self.train_set = glob.glob(set_dir)[:5703]
         self.train_dl = make_dataloaders(paths=self.train_set)
 
-        
     def check_cuda_availability(self):
+        '''Check if CUDA (GPU) available and set device respectively
+        '''
         if torch.cuda.is_available():
             print ('CUDA is available and set as device')
             device = 'cuda'
@@ -26,6 +29,8 @@ class  Model_trainer():
         return device
     
     def train_model(self):
+        '''Train the specified model
+        '''
         criterion = nn.MSELoss()  # Loss function Mean Squared Error*.jpg
         optimizer = optim.Adam(self.model.parameters(), lr=self.learning_rate)
         device = self.check_cuda_availability()

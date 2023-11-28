@@ -7,15 +7,17 @@ from torchvision import transforms
 
 PIC_SIZE = 256
 
-
 class ColorizationDataset(Dataset):
+    '''Dataset class designed for image colorization tasks
+    '''
     def __init__(self, paths):
         self.transforms = transforms.Resize((PIC_SIZE, PIC_SIZE), Image.BICUBIC)
-
         self.pic_size = PIC_SIZE
         self.paths = paths
 
     def __getitem__(self, idx):
+        '''Retrieves and processes the image
+        '''
         img = Image.open(self.paths[idx]).convert("RGB")
         img = self.transforms(img)
         img = np.array(img)
@@ -27,10 +29,14 @@ class ColorizationDataset(Dataset):
         return {"L": L, "ab": ab}
 
     def __len__(self):
+        '''Return the total number of images in the dataset
+        '''
         return len(self.paths)
 
 
 def make_dataloaders(batch_size=16, n_workers=1, pin_memory=True, **kwargs):
+    '''Create and return dataloader
+    '''
     dataset = ColorizationDataset(**kwargs)
     dataloader = DataLoader(
         dataset, batch_size=batch_size, num_workers=n_workers, pin_memory=pin_memory

@@ -10,6 +10,8 @@ from model_structure import UNet
 
 
 class GUI_Window:
+    '''GUI window for an image coloring application
+    '''
     def __init__(self, root, path):
         self.root = root
         self.root.title("Image coloring application")
@@ -22,12 +24,15 @@ class GUI_Window:
         btn_1.place(relx=0.2, rely=0.02)
         btn_2 = Button(self.root, text="Predict", fg="black", command=self.prediction)
         btn_2.place(relx=0.7, rely=0.02)
-        
-
+ 
     def load_image(self):
+        '''Opens a file dialog to select and load an image
+        '''
         self.image = select_path(self.root)
 
     def prediction(self):
+        '''Performs colorization prediction on the loaded image using the pre-trained model
+        '''
         if self.image is not None:
             predict(self.model, self.image, self.root)
 
