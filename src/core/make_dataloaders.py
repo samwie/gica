@@ -1,11 +1,12 @@
+import sys
 import numpy as np
 from PIL import Image
 from skimage.color import rgb2lab
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 
-
-PIC_SIZE = 256
+sys.path.append('./../utils')
+from utils import PIC_SIZE
 
 class ColorizationDataset(Dataset):
     '''Dataset class designed for image colorization tasks

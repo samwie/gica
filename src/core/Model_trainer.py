@@ -1,9 +1,13 @@
+import sys
 import glob
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from tqdm import tqdm
 from make_dataloaders import make_dataloaders
+
+sys.path.append('./../utils')
+from utils import check_cuda_availability
 
 class  Model_trainer():
     '''Utility class for training a PyTorch model
@@ -16,25 +20,14 @@ class  Model_trainer():
         self.set_dir = set_dir
         self.train_set = glob.glob(set_dir)[:5703]
         self.train_dl = make_dataloaders(paths=self.train_set)
+        self.device = check_cuda_availability()
 
-    def check_cuda_availability(self):
-        '''Check if CUDA (GPU) available and set device respectively
-        '''
-        if torch.cuda.is_available():
-            print ('CUDA is available and set as device')
-            device = 'cuda'
-        else:
-            print('CUDA is not available. CPU is set as device')
-            device = 'cpu'
-        return device
-    
     def train_model(self):
         '''Train the specified model
         '''
         criterion = nn.MSELoss()  # Loss function Mean Squared Error*.jpg
         optimizer = optim.Adam(self.model.parameters(), lr=self.learning_rate)
-        device = self.check_cuda_availability()
-        self.model.to(device)
+        self.model.to(self.device)
 
         for epoch in range(self.epochs):
             self.model.train()

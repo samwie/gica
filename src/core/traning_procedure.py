@@ -3,7 +3,7 @@ import argparse
 from model_structure import UNet
 from Model_trainer import Model_trainer
 
-def main():
+def training_procedure():
     ''' Main function for training a U-Net model
     '''
     parser = argparse.ArgumentParser()
@@ -19,4 +19,4 @@ def main():
         trainer.train_model()
 
 if __name__ == "__main__":
-    main()
+    training_procedure ()
