@@ -11,13 +11,21 @@ def select_path(root):
     global image
 
     path = filedialog.askopenfilename()
-    image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
-    image = cv2.resize(image, (256, 256))
-    image_pil = Image.fromarray(image)
+    if path:
+        image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+        
+        if image is not None and not image.size == 0:
+            
+            image = cv2.resize(image, (256, 256))
+            image_pil = Image.fromarray(image)
 
-    im_window   = ttk.Frame(root, padding=10)
-    im_window.place(relx=0, rely=0.1)
-    tk_image = ImageTk.PhotoImage(image_pil)
-    ttk.Label(im_window, image=tk_image).grid(column=0, row=0)
+            im_window   = ttk.Frame(root, padding=10)
+            im_window.place(relx=0, rely=0.1)
+            tk_image = ImageTk.PhotoImage(image_pil)
+            ttk.Label(im_window, image=tk_image).grid(column=0, row=0)
     
-    return image
+            return image
+        else:
+            print("Error: Unable to load the image.")
+    else:
+        print('"Error: No file selected."')
