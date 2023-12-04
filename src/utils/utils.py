@@ -1,4 +1,9 @@
 import torch
+import sys
+from PIL import ImageTk
+
+sys.path.append("./../core")
+from model_structure import UNet
 
 PIC_SIZE = 256
 
@@ -14,4 +19,33 @@ def check_cuda_availability():
         device = 'cpu'
         
     return device
+
+def load_model(path):
+    '''
+    Load trained UNet model
+    '''
+    if torch.cuda.is_available():
+        device = 'cuda'
+    else:
+        device = 'cpu'
+    model = UNet()
+    model.load_state_dict(
+    torch.load(
+        path,
+        map_location=torch.device(device),
+        )
+    )
+    return model
+
+def predict(model, image):
+    '''
+    Image color prediction
+    '''
+    global tk_image_pred
+
+    img_normalized = image / 50.0 - 1
+    img_tensor = torch.tensor(img_normalized).float().unsqueeze(0).unsqueeze(0)
+    image_pred = model.predict(img_tensor)
+    tk_image_pred = ImageTk.PhotoImage(image_pred)
     
+    return tk_image_pred

@@ -1,14 +1,13 @@
 import sys
 
 from select_path import select_path
-from predict import predict
-from load_model import load_model
 
-sys.path.append("./../core")
-from model_structure import UNet
+sys.path.append("./../utils")
 
-
+from utils import load_model
 from guiBuilder import GuiBuilder
+
+from show_predicted_image import show_predicted_image
 
 class gui_window(GuiBuilder):
 
@@ -29,11 +28,14 @@ class gui_window(GuiBuilder):
         '''Performs colorization prediction on the loaded image using the pre-trained model
         '''
         if self.image is not None:
-            predict(self.model, self.image, self.root)
+            show_predicted_image(self.model, self.image, self.root)
 
 
 
 def gui_instance():
+    '''
+    Create and run the GUI
+    '''
     path = "./../../../trained_model.pth"
     gui = gui_window(title=  "Image coloring application", width = 600, height = 320, path = path)
     gui.run
