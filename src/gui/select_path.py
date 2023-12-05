@@ -28,4 +28,4 @@ def select_path(root):
         else:
             print("Error: Unable to load the image.")
     else:
-        print('"Error: No file selected."')
+        print("Error: No file selected.")

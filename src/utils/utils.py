@@ -1,6 +1,6 @@
 import torch
 import sys
-from PIL import ImageTk
+# from PIL import ImageTk
 
 sys.path.append("./../core")
 from model_structure import UNet
@@ -24,10 +24,8 @@ def load_model(path):
     '''
     Load trained UNet model
     '''
-    if torch.cuda.is_available():
-        device = 'cuda'
-    else:
-        device = 'cpu'
+    device = check_cuda_availability()
+    
     model = UNet()
     model.load_state_dict(
     torch.load(
@@ -41,11 +39,9 @@ def predict(model, image):
     '''
     Image color prediction
     '''
-    global tk_image_pred
 
     img_normalized = image / 50.0 - 1
     img_tensor = torch.tensor(img_normalized).float().unsqueeze(0).unsqueeze(0)
     image_pred = model.predict(img_tensor)
-    tk_image_pred = ImageTk.PhotoImage(image_pred)
-    
-    return tk_image_pred
+
+    return image_pred
