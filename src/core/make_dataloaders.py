@@ -6,7 +6,7 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 
 sys.path.append('./../utils')
-from utils import PIC_SIZE
+from utils.constants import PIC_SIZE
 
 class ColorizationDataset(Dataset):
     '''Dataset class designed for image colorization tasks

@@ -1,11 +1,9 @@
 import torch
 import sys
-# from PIL import ImageTk
 
 sys.path.append("./../core")
 from model_structure import UNet
 
-PIC_SIZE = 256
 
 def check_cuda_availability():
     '''

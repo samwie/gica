@@ -1,9 +1,13 @@
 import os
+import sys
+
+sys.path.append("./../utils")
 import argparse
 
 from return_image import return_image
 from utils import load_model, predict
-from constantsByGlobal import *
+from constants import DESCRIPTION, EPILOG, PATH_HELP, DESTINATION_HELP
+
 
 def console_instance():
     '''
