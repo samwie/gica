@@ -1,9 +1,7 @@
 import torch
 import sys
 
-sys.path.append("./../core")
-from model_structure import UNet
-
+from ..core.model_structure import UNet
 
 def check_cuda_availability():
     '''

@@ -1,13 +1,14 @@
 import sys
 
-from select_path import select_path
+from .select_path import select_path
 
-sys.path.append("./../utils")
+# sys.path.append("./../utils")
 
-from utils import load_model
-from guiBuilder import GuiBuilder
+from ..utils.utils import load_model
 
-from show_predicted_image import show_predicted_image
+from .guiBuilder import GuiBuilder
+
+from .show_predicted_image import show_predicted_image
 
 class gui_window(GuiBuilder):
 
@@ -36,9 +37,6 @@ def gui_instance():
     '''
     Create and run the GUI
     '''
-    path = "./../../../trained_model.pth"
+    path = './../trained_model.pth'
     gui = gui_window(title=  "Image coloring application", width = 600, height = 320, path = path)
-    gui.run
-
-if __name__ == "__main__":
-    gui_instance()
+    gui.run()

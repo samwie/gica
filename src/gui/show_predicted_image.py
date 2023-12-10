@@ -2,9 +2,7 @@ from tkinter import ttk
 import sys
 from PIL import ImageTk
 
-sys.path.append('./../utils')
-
-from utils import predict
+from ..utils.utils import predict
 
 def show_predicted_image(model, image, root):
     '''

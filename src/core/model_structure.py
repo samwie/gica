@@ -2,9 +2,9 @@ import torch
 import torch.nn as nn
 import numpy as np
 from PIL import Image
-from Conv_block import Conv_block
-from Decoder_block import Decoder_block
-from Encoder_block import Encoder_block
+from .Conv_block import Conv_block
+from .Decoder_block import Decoder_block
+from .Encoder_block import Encoder_block
 
 class UNet(nn.Module):
     '''UNet NN model

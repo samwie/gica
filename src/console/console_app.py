@@ -4,9 +4,9 @@ import sys
 sys.path.append("./../utils")
 import argparse
 
-from return_image import return_image
-from utils import load_model, predict
-from constants import DESCRIPTION, EPILOG, PATH_HELP, DESTINATION_HELP
+from .return_image import return_image
+from ..utils.utils import load_model, predict
+from ..utils.constants import DESCRIPTION, EPILOG, PATH_HELP, DESTINATION_HELP
 
 
 def console_instance():
@@ -44,6 +44,3 @@ def console_instance():
 
     else:
         parser.print_help()
-
-if __name__ == '__main__':
-    console_instance()
