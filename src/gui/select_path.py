@@ -29,16 +29,11 @@ def select_path(root):
             else:
                 print("Error: Unable to load the image.")
         else:
-<<<<<<< HEAD
             print("Error: Unable to load the image.")
-    else:
-        print("Error: No file selected.")Dok
-=======
-            print("Error: No file selected.")
 
     except FileNotFoundError:
         print('Error: File not found')
 
     except Exception as e:
         print(f'Unexpected error: {e}')
->>>>>>> feature-exceptions-handling
+        
