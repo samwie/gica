@@ -4,15 +4,26 @@ def select_image(path):
     '''
     Load and preprocess a grayscale image.
     '''
-    if path:
-        image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+    try:
 
-        if image is not None and not image.size == 0:
+        if path:
+            image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
 
-            image = cv2.resize(image, (256, 256))
-            
-            return image
+            if image is not None and not image.size == 0:
 
-        else:
-           print("Error: Unable to load the image.")
-    print("Error: No file selected.")
+                image = cv2.resize(image, (256, 256))
+                
+                return image
+
+            else:
+                print("Error: Unable to load the image.")
+            print("Error: No file selected.")
+
+    except FileNotFoundError:
+        print('Error: File not found')
+        
+    except cv2.error as e:
+        print(f'OpenCV error: {e}')
+    
+    except Exception as e:
+        print(f'Unexpected error: {e}')
