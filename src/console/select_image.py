@@ -1,5 +1,7 @@
 import cv2
 
+from ..utils.setup_logger import logger
+
 def select_image(path):
     '''
     Load and preprocess a grayscale image.
@@ -12,18 +14,21 @@ def select_image(path):
             if image is not None and not image.size == 0:
 
                 image = cv2.resize(image, (256, 256))
-                
+
+                logger.info('Image was selected')
+
                 return image
 
             else:
-                print("Error: Unable to load the image.")
-            print("Error: No file selected.")
+                logger.warning('Unable to load the image.')
+
+            logger.warning('No file selected')
 
     except FileNotFoundError:
-        print('Error: File not found')
-        
+        logger.warning('File not found')
+
     except cv2.error as e:
-        print(f'OpenCV error: {e}')
-    
+        logger.error(f'OpenCV error: {e}')
+
     except Exception as e:
-        print(f'Unexpected error: {e}')
+        logger.error(f'Unexpected error: {e}')

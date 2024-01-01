@@ -2,13 +2,13 @@ import sys
 
 from .select_path import select_path
 
-# sys.path.append("./../utils")
-
 from ..utils.utils import load_model
 
 from .guiBuilder import GuiBuilder
 
 from .show_predicted_image import show_predicted_image
+
+from ..utils.setup_logger import logger
 
 class gui_window(GuiBuilder):
 

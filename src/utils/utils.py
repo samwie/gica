@@ -3,17 +3,20 @@ import sys
 
 from ..core.model_structure import UNet
 
+from .setup_logger import logger
+
 def check_cuda_availability():
     '''
     Check if CUDA (GPU) available and set device respectively
     '''
     if torch.cuda.is_available():
-        print ('CUDA is available and set as device')
         device = 'cuda'
+        logger.info('CUDA is available and set as device')
+
     else:
-        print('CUDA is not available. CPU is set as device')
         device = 'cpu'
-        
+        logger.info('CUDA is not available. CPU is set as device')
+
     return device
 
 def load_model(path):
@@ -31,13 +34,15 @@ def load_model(path):
             map_location=torch.device(device),
             )
         )
+        logger.info('The model has been loaded')
         return model
 
     except FileNotFoundError:
-        print (f'Error: File not found')
+        logger.warning('Error: File not found')
 
     except Exception as e:
-        print(f'Unexpected error: {e}')
+        logger.error(f'Unexpected error: {e}')
+
 
 def predict(model, image):
     '''
@@ -49,10 +54,13 @@ def predict(model, image):
 
     try:
         image_pred = model.predict(img_tensor)
+
+        logger.info('The color image was generated')
+        
         return image_pred
 
     except torch.TensorError as e:
-        print (f'Tensor error: {e}')
+        logger.error(f'Tensor error: {e}')
 
     except Exception as e:
-        print(f'Error: {e}')
+        logger.error(f'Error: {e}')

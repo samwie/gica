@@ -2,6 +2,7 @@ from tkinter import filedialog, ttk
 import cv2
 from PIL import Image, ImageTk
 
+from ..utils.setup_logger import logger
 
 def select_path(root):
     '''
@@ -25,15 +26,16 @@ def select_path(root):
                 tk_image = ImageTk.PhotoImage(image_pil)
                 ttk.Label(im_window, image=tk_image).grid(column=0, row=0)
 
+                logger.info('The selected image has been successfully loaded')
+
                 return image
             else:
-                print("Error: Unable to load the image.")
+                logger.warning('Unable to load the image.')
         else:
-            print("Error: Unable to load the image.")
+            logger.warning('Unable to load the image.')
 
     except FileNotFoundError:
-        print('Error: File not found')
+        logger.error('File not found')
 
     except Exception as e:
-        print(f'Unexpected error: {e}')
-        
+        logger.error(f'Unexpected error: {e}')
