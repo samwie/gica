@@ -36,6 +36,3 @@ def select_path(root):
 
     except FileNotFoundError:
         logger.error('File not found')
-
-    except Exception as e:
-        logger.error(f'Unexpected error: {e}')

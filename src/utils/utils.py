@@ -40,10 +40,6 @@ def load_model(path):
     except FileNotFoundError:
         logger.warning('Error: File not found')
 
-    except Exception as e:
-        logger.error(f'Unexpected error: {e}')
-
-
 def predict(model, image):
     '''
     Image color prediction
@@ -61,6 +57,3 @@ def predict(model, image):
 
     except torch.TensorError as e:
         logger.error(f'Tensor error: {e}')
-
-    except Exception as e:
-        logger.error(f'Error: {e}')

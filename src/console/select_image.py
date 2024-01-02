@@ -29,6 +29,3 @@ def select_image(path):
 
     except cv2.error as e:
         logger.error(f'OpenCV error: {e}')
-
-    except Exception as e:
-        logger.error(f'Unexpected error: {e}')
