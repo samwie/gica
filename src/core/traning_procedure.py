@@ -1,7 +1,7 @@
 import os
 import argparse
 from model_structure import UNet
-from Model_trainer import Model_trainer
+from model_trainer import Model_trainer
 
 def training_procedure():
     ''' Main function for training a U-Net model

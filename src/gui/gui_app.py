@@ -4,13 +4,13 @@ from .select_path import select_path
 
 from ..utils.utils import load_model
 
-from .guiBuilder import GuiBuilder
+from .gui_builder import GuiBuilder
 
 from .show_predicted_image import show_predicted_image
 
 from ..utils.setup_logger import logger
 
-class gui_window(GuiBuilder):
+class Gui_window(GuiBuilder):
 
     def __init__(self, title: str, width: int, height: int, path: str):
         super().__init__(title, width, height)
@@ -38,5 +38,5 @@ def gui_instance():
     Create and run the GUI
     '''
     path = './../trained_model.pth'
-    gui = gui_window(title=  "Image coloring application", width = 600, height = 320, path = path)
+    gui = Gui_window(title=  "Image coloring application", width = 600, height = 320, path = path)
     gui.run()

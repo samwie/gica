@@ -1,5 +1,5 @@
 import torch.nn as nn
-from .Conv_block import Conv_block
+from .conv_block import Conv_block
 
 class Encoder_block(nn.Module):
     '''Single convolution block
