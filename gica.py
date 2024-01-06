@@ -4,7 +4,7 @@ from src.console.console_app import console_instance
 from src.gui.gui_app import gui_instance
 from src.utils.setup_logger import logger
 
-def main():
+def main() -> None:
 
     try:
 

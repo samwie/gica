@@ -1,12 +1,12 @@
-from tkinter import ttk
-import sys
+from tkinter import ttk, Tk
+from numpy.typing import NDArray
 from PIL import ImageTk
 
 from ..utils.utils import predict
 
 from ..utils.setup_logger import logger
 
-def show_predicted_image(model, image, root):
+def show_predicted_image(model:any, image:NDArray, root: Tk) -> None:
 
     '''
     Display image with color prediction

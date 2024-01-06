@@ -1,9 +1,9 @@
 import os
 import argparse
-from model_structure import UNet
-from model_trainer import Model_trainer
+from .model_structure import UNet
+from .model_trainer import Model_trainer
 
-def training_procedure():
+def training_procedure() -> None:
     ''' Main function for training a U-Net model
     '''
     parser = argparse.ArgumentParser()
@@ -13,6 +13,7 @@ def training_procedure():
     if not os.path.exists(args.path):
         print('Path does not exist')
         return  
+    
     else:
         model = UNet()
         trainer = Model_trainer(model = model, epochs = 100, set_dir = f'{args.path}*.jpg', learning_rate=0.001)

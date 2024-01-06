@@ -4,10 +4,9 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from tqdm import tqdm
-from make_dataloaders import make_dataloaders
 
-sys.path.append('./../utils')
-from utils import check_cuda_availability
+from .make_dataloaders import make_dataloaders
+from ..utils.utils import check_cuda_availability
 
 class  Model_trainer():
     '''Utility class for training a PyTorch model
@@ -25,7 +24,7 @@ class  Model_trainer():
     def train_model(self):
         '''Train the specified model
         '''
-        criterion = nn.MSELoss()  # Loss function Mean Squared Error*.jpg
+        criterion = nn.MSELoss()
         optimizer = optim.Adam(self.model.parameters(), lr=self.learning_rate)
         self.model.to(self.device)
 

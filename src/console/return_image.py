@@ -1,13 +1,11 @@
-import sys
-
-import torch
+from PIL import Image
 
 from .select_image import select_image
 
 from ..utils.utils import load_model, predict
 from ..utils.setup_logger import logger
 
-def return_image(path):
+def return_image(path: str) -> Image.Image:
     '''
     Load a pre-trained model, select and process an image, and return the predicted color image.
     '''

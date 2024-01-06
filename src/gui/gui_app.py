@@ -1,5 +1,3 @@
-import sys
-
 from .select_path import select_path
 
 from ..utils.utils import load_model
@@ -20,12 +18,12 @@ class Gui_window(GuiBuilder):
         btn_1 = GuiBuilder.CreateButton(text="Load image", fg="black", command=self.load_image, relx=0.2, rely=0.02)
         btn_2 = GuiBuilder.CreateButton(text="Predict", fg="black", command=self.prediction, relx=0.7, rely=0.02)
 
-    def load_image(self):
+    def load_image(self) -> None:
         '''Opens a file dialog to select and load an image
         '''
         self.image = select_path(self.root)
 
-    def prediction(self):
+    def prediction(self) -> None:
         '''Performs colorization prediction on the loaded image using the pre-trained model
         '''
         if self.image is not None:

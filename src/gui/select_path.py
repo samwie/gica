@@ -1,10 +1,12 @@
-from tkinter import filedialog, ttk
+from tkinter import filedialog, ttk, Tk
+from typing import Optional
 import cv2
 from PIL import Image, ImageTk
+from numpy.typing import NDArray
 
 from ..utils.setup_logger import logger
 
-def select_path(root):
+def select_path(root: Tk) -> Optional[NDArray]:
     '''
     Select the path to the image and process it
     '''
