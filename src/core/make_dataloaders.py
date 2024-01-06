@@ -5,18 +5,17 @@ from skimage.color import rgb2lab
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 
-sys.path.append('./../utils')
-from utils.constants import PIC_SIZE
+from .. utils.constants import PIC_SIZE
 
 class ColorizationDataset(Dataset):
     '''Dataset class designed for image colorization tasks
     '''
-    def __init__(self, paths):
+    def __init__(self, paths: list):
         self.transforms = transforms.Resize((PIC_SIZE, PIC_SIZE), Image.BICUBIC)
         self.pic_size = PIC_SIZE
         self.paths = paths
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx: int) -> dict:
         '''Retrieves and processes the image
         '''
         img = Image.open(self.paths[idx]).convert("RGB")
@@ -29,13 +28,13 @@ class ColorizationDataset(Dataset):
 
         return {"L": L, "ab": ab}
 
-    def __len__(self):
+    def __len__(self) -> int:
         '''Return the total number of images in the dataset
         '''
         return len(self.paths)
 
 
-def make_dataloaders(batch_size=16, n_workers=1, pin_memory=True, **kwargs):
+def make_dataloaders(batch_size=16, n_workers=1, pin_memory=True, **kwargs) -> DataLoader:
     '''Create and return dataloader
     '''
     dataset = ColorizationDataset(**kwargs)

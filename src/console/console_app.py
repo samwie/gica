@@ -9,7 +9,7 @@ from ..utils.utils import load_model, predict
 from ..utils.constants import DESCRIPTION, EPILOG, PATH_HELP, DESTINATION_HELP
 from ..utils.setup_logger import logger
 
-def console_instance():
+def console_instance() -> None:
     '''
     Predict color for a grayscale image using a pre-trained model.
     Command-line arguments:

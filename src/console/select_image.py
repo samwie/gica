@@ -1,8 +1,10 @@
 import cv2
+from typing import Optional
+from numpy.typing import NDArray
 
 from ..utils.setup_logger import logger
 
-def select_image(path):
+def select_image(path: str) -> Optional[NDArray]:
     '''
     Load and preprocess a grayscale image.
     '''
@@ -29,6 +31,3 @@ def select_image(path):
 
     except cv2.error as e:
         logger.error(f'OpenCV error: {e}')
-
-    except Exception as e:
-        logger.error(f'Unexpected error: {e}')

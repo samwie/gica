@@ -1,11 +1,13 @@
+from typing import Optional
+from PIL import Image
+from numpy.typing import NDArray
+
 import torch
-import sys
 
 from ..core.model_structure import UNet
-
 from .setup_logger import logger
 
-def check_cuda_availability():
+def check_cuda_availability() -> str:
     '''
     Check if CUDA (GPU) available and set device respectively
     '''
@@ -19,7 +21,7 @@ def check_cuda_availability():
 
     return device
 
-def load_model(path):
+def load_model(path) -> Optional[UNet]:
     '''
     Load trained UNet model
     '''
@@ -35,16 +37,13 @@ def load_model(path):
             )
         )
         logger.info('The model has been loaded')
+        
         return model
 
     except FileNotFoundError:
         logger.warning('Error: File not found')
 
-    except Exception as e:
-        logger.error(f'Unexpected error: {e}')
-
-
-def predict(model, image):
+def predict(model: UNet, image: NDArray) -> Optional[Image.Image]:
     '''
     Image color prediction
     '''
@@ -56,11 +55,8 @@ def predict(model, image):
         image_pred = model.predict(img_tensor)
 
         logger.info('The color image was generated')
-        
+
         return image_pred
 
     except torch.TensorError as e:
         logger.error(f'Tensor error: {e}')
-
-    except Exception as e:
-        logger.error(f'Error: {e}')
