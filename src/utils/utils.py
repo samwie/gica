@@ -57,6 +57,6 @@ def predict(model: UNet, image: NDArray) -> Optional[Image.Image]:
         logger.info('The color image was generated')
 
         return image_pred
-
+    
     except torch.TensorError as e:
         logger.error(f'Tensor error: {e}')
