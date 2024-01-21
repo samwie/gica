@@ -75,7 +75,7 @@ class UNet(nn.Module):
         rgb_image = np.clip(rgb_image, 0, 1) * 255
         rgb_image = rgb_image.astype(np.uint8)
         image_pil = Image.fromarray(rgb_image)
-
+        
         self.train()
         
         return image_pil
