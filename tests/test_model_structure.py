@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 import numpy as np
 from PIL import Image
 
-from src.core.model_structure import UNet
+from src.core.model_structure import
 
 
 class TestUNet(unittest.TestCase):
