@@ -11,6 +11,7 @@ from src.utils.utils import *
 
 from pathlib import Path
 
+
 def test_check_cuda_availability():
     """
     # Check if the function returns the expected result for CPU
@@ -29,11 +30,9 @@ class TestLoadModel(unittest.TestCase):
     """
 
     def setUp(self):
-        self.path = "./../../trained_model.pth"
-        self.absolute_path = os.path.abspath(self.path)
-        # self.path = Path(__file__).resolve().parent.parent / 'trained_model.pth'
-        # self.absolute_path = os.path.realpath(self.path)
-        
+        self.absolute_path = (
+            Path(__file__).resolve().parent.parent.parent / "trained_model.pth"
+        )
         self.fake_path = "./../../trained_model_fake.pth"
         self.absolute_path_fake = os.path.abspath(self.fake_path)
 
