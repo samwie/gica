@@ -7,9 +7,9 @@ import argparse
 from .return_image import return_image
 from ..utils.utils import load_model, predict
 from ..utils.constants import DESCRIPTION, EPILOG, PATH_HELP, DESTINATION_HELP
+from ..utils.setup_logger import logger
 
-
-def console_instance():
+def console_instance() -> None:
     '''
     Predict color for a grayscale image using a pre-trained model.
     Command-line arguments:
@@ -40,7 +40,9 @@ def console_instance():
 
         pred_image = return_image(path)
         pred_image.save(destination)
+        
         print(f'The predicted image was saved in the location: {destination}')
+        logger.info('The generated image was saved')
 
     else:
         parser.print_help()

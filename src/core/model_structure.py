@@ -2,13 +2,17 @@ import torch
 import torch.nn as nn
 import numpy as np
 from PIL import Image
-from .Conv_block import Conv_block
-from .Decoder_block import Decoder_block
-from .Encoder_block import Encoder_block
+from torch import Tensor
+from .conv_block import Conv_block
+from .decoder_block import Decoder_block
+from .encoder_block import Encoder_block
+
 
 class UNet(nn.Module):
-    '''UNet NN model
-    '''
+    """
+    UNet NN model
+    """
+
     def __init__(self):
         super().__init__()
         # Encoder part
@@ -29,9 +33,11 @@ class UNet(nn.Module):
         # Output layer
         self.outconv = nn.Conv2d(64, 2, kernel_size=1)
 
-    def forward(self, inputs):
-        '''Perform forward pass through model structure
-        '''
+    def forward(self, inputs: Tensor) -> Tensor:
+        """
+        Perform forward pass through model structure
+        """
+
         # Encoder part
         x1, p1 = self.econv1(inputs)
         x2, p2 = self.econv2(p1)
@@ -52,9 +58,11 @@ class UNet(nn.Module):
 
         return out
 
-    def predict(self, input_data):
-        '''Predict color of image
-        '''
+    def predict(self, input_data: Tensor) -> Image.Image:
+        """
+        Predict color of image
+        """
+
         self.eval()
 
         with torch.no_grad():
@@ -76,4 +84,5 @@ class UNet(nn.Module):
         image_pil = Image.fromarray(rgb_image)
 
         self.train()
+
         return image_pil

@@ -18,13 +18,13 @@ class GuiBuilder:
         self.root.title(title)
 
     @property
-    def run(self):
+    def run(self) -> None:
         """
         Runs the tkinter main loop to display the GUI.
         """
         self.root.mainloop()
 
-    def CreateButton(text: str, fg: str, command: callable, relx: float, rely: float):
+    def CreateButton(text: str, fg: str, command: callable, relx: float, rely: float) -> tk.Button:
         """
         Creates and places a button in the GUI window
         Parameters:

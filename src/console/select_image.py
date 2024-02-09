@@ -1,18 +1,33 @@
 import cv2
+from typing import Optional
+from numpy.typing import NDArray
 
-def select_image(path):
+from ..utils.setup_logger import logger
+
+def select_image(path: str) -> Optional[NDArray]:
     '''
     Load and preprocess a grayscale image.
     '''
-    if path:
-        image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+    try:
 
-        if image is not None and not image.size == 0:
+        if path:
+            image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
 
-            image = cv2.resize(image, (256, 256))
-            
-            return image
+            if image is not None and not image.size == 0:
 
-        else:
-           print("Error: Unable to load the image.")
-    print("Error: No file selected.")
+                image = cv2.resize(image, (256, 256))
+
+                logger.info('Image was selected')
+
+                return image
+
+            else:
+                logger.warning('Unable to load the image.')
+
+            logger.warning('No file selected')
+
+    except FileNotFoundError:
+        logger.warning('File not found')
+
+    except cv2.error as e:
+        logger.error(f'OpenCV error: {e}')
